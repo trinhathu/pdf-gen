@@ -4,7 +4,7 @@ const fs = require('fs');
 const express = require('express');
 const app = express();
 
-app.listen(8080, () => console.log('Example app listening on port 8080!'))
+app.listen(8080, () => console.log('App listening on port 8080!'))
 
 app.get('/', async (req, res) => {
   const url = req.query.url;
@@ -27,14 +27,14 @@ app.get('/', async (req, res) => {
   const checkMode = () => {
     const currentPage = window.document.querySelector('.page.current');
     if (currentPage.className.indexOf('landscape') > -1) {
-        return Promise.resolve(true);
+      return Promise.resolve(true);
     }
     return Promise.resolve(false);
   };
 
   const files = [];
   let i = 0;
-  const makePdf = async function() {
+  const makePdf = async () => {
     i++;
     const path = `report${i}.pdf`;
     files.push(path);
@@ -42,28 +42,28 @@ app.get('/', async (req, res) => {
     const landscape = await page.evaluate(checkMode);
     let margin = {};
     if (landscape) {
-        margin = {
-          top: '0.75in',
-          right: '1.25in',
-          bottom: '0.75in',
-          left: '1.25in',
-        };
+      margin = {
+        top: '0.75in',
+        right: '1.25in',
+        bottom: '0.75in',
+        left: '1.25in',
+      };
     } else {
-        margin = {
-          top: '1.2in',
-          right: '0in',
-          bottom: '1.25in',
-          left: '0in',
-        };
+      margin = {
+        top: '1.2in',
+        right: '0in',
+        bottom: '1.25in',
+        left: '0in',
+      };
     }
 
     await page.waitFor(1000);
 
     await page.pdf({
-        path,
-        landscape,
-        margin,
-        printBackground: true,
+      path,
+      landscape,
+      margin,
+      printBackground: true,
     });
   };
 
@@ -80,8 +80,7 @@ app.get('/', async (req, res) => {
     res.set('content-type', 'application/pdf');
     res.send(buffer);
     files.forEach((path) => {
-        fs.unlinkSync(path);
+      fs.unlinkSync(path);
     });
   });
 });
-
