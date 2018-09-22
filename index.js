@@ -13,6 +13,8 @@ app.get('/', async (req, res) => {
     return;
   }
 
+  console.log(`start PDF generation for ${url}`, Date.now());
+
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
@@ -26,6 +28,7 @@ app.get('/', async (req, res) => {
 
   const checkMode = () => {
     const currentPage = window.document.querySelector('.page.current');
+    console.log('current', currentPage, document.querySelector('.page.current'));
     if (currentPage.className.indexOf('landscape') > -1) {
       return Promise.resolve(true);
     }
@@ -65,6 +68,8 @@ app.get('/', async (req, res) => {
       margin,
       printBackground: true,
     });
+
+    console.log(`created ${path}`);
   };
 
   do {
@@ -83,4 +88,6 @@ app.get('/', async (req, res) => {
       fs.unlinkSync(path);
     });
   });
+
+  console.log(`finished PDF generation for ${url}`, Date.now());
 });
