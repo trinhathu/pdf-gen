@@ -31,10 +31,10 @@ app.get('/', async (req, res) => {
           const currentWrapper = window.document.querySelector('.wrapper');
           console.log('current', currentPage, document.querySelector('.page.current'));
           if (currentPage.className.indexOf('landscape') > -1) {
-               currentWrapper.style.width = '1375px';
+               currentWrapper.style.width = '1000px';
                return Promise.resolve(true);
           }
-          currentWrapper.style.width = '1000px';
+          currentWrapper.style.width = '768px';
           return Promise.resolve(false);
      };
 
@@ -49,7 +49,7 @@ app.get('/', async (req, res) => {
           let margin = {
                top: '0.25in',
                right: '0.5in',
-               bottom: '0in',
+               bottom: '0',
                left: '0.5in',
           };
 
