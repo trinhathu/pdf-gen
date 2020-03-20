@@ -1,5 +1,5 @@
 # pdf-gen
-
+ 
 This is a Node.js library for generating PDFs for AFI FAS reports.
 
 It runs an [Express](https://expressjs.com/) server on port 8080 that expects a `url` param. It uses [Puppeteer](https://github.com/GoogleChrome/puppeteer/) to navigate to that URL and creates a PDF for each page. Finally, it uses [PDFMerge](https://www.npmjs.com/package/pdf-merge) to combine the single-page PDFs into one grand PDF and returns that to the browser.
